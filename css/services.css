@@ -1,0 +1,21 @@
+.page-heading { font-size: 28px; font-weight: 800; color: var(--primary-dark); }
+.page-subheading { font-size: 13.5px; color: var(--primary-light); margin: 4px 0 26px; }
+
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.svc-card {
+  background: #f9fdff;
+  border: 1.5px solid var(--primary-dark);
+  border-radius: 14px;
+  padding: 26px 20px 22px;
+  text-align: center;
+  transition: var(--transition-smooth);
+}
+.svc-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: 0 14px 28px rgba(1, 106, 138, 0.12); }
+
+.svc-icon { width: 64px; height: 64px; color: var(--primary-dark); margin-bottom: 10px; }
+.svc-card h3 { font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px; }
+.svc-card p { font-size: 13px; color: var(--primary-light); }
+
+@media (max-width: 900px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .svc-grid { grid-template-columns: 1fr; } }

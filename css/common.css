@@ -1,0 +1,53 @@
+/* Color Palette & Base Keyframe Animations */
+:root {
+  --primary-dark: #016a8a;
+  --primary: #19a5cf;
+  --primary-light: #86b8c8;
+  --border-color: #bde0ea;
+  --bg-main: #f7fafc;
+  --bg-card: #ffffff;
+  --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  70% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(25, 165, 207, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(25, 165, 207, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(25, 165, 207, 0); }
+}
+
+button {
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+button:active {
+  transform: scale(0.96) !important;
+}

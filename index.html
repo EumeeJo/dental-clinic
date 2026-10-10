@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambayec Dental Care Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+  <!-- Icons used by the Services and About sections -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- services -->
+    <symbol id="s-tooth-plus" viewBox="0 0 64 64">
+      <g transform="translate(-1.6 -4.4) scale(2.8)">
+        <path fill="currentColor" d="M12 6.5c-1.2-1-2.6-1.5-4-1.5C5.5 5 4 6.8 4 9.3c0 1.7.5 3 1 4.4.6 1.6.9 3.3 1.3 5 .2 1 .8 1.8 1.7 1.8 1 0 1.5-.9 1.8-2l.5-2.2c.2-.8.6-1.2 1.2-1.2s1 .4 1.2 1.2l.5 2.2c.3 1.1.8 2 1.8 2 .9 0 1.5-.8 1.7-1.8.4-1.7.7-3.4 1.3-5 .5-1.4 1-2.7 1-4.4C20 6.8 18.5 5 16 5c-1.4 0-2.8.5-4 1.5z"/>
+      </g>
+      <rect x="17" y="22" width="14" height="4" fill="#fff"/>
+      <rect x="22" y="17" width="4" height="14" fill="#fff"/>
+    </symbol>
+
+    <symbol id="s-tooth-sparkle" viewBox="0 0 64 64">
+      <g transform="translate(-1 2) scale(2.4)">
+        <path fill="currentColor" d="M12 6.5c-1.2-1-2.6-1.5-4-1.5C5.5 5 4 6.8 4 9.3c0 1.7.5 3 1 4.4.6 1.6.9 3.3 1.3 5 .2 1 .8 1.8 1.7 1.8 1 0 1.5-.9 1.8-2l.5-2.2c.2-.8.6-1.2 1.2-1.2s1 .4 1.2 1.2l.5 2.2c.3 1.1.8 2 1.8 2 .9 0 1.5-.8 1.7-1.8.4-1.7.7-3.4 1.3-5 .5-1.4 1-2.7 1-4.4C20 6.8 18.5 5 16 5c-1.4 0-2.8.5-4 1.5z"/>
+      </g>
+      <path fill="#19a5cf" d="M54 4Q54 12 62 12Q54 12 54 20Q54 12 46 12Q54 12 54 4Z"/>
+      <path fill="#19a5cf" d="M57 30Q57 34 61 34Q57 34 57 38Q57 34 53 34Q57 34 57 30Z"/>
+    </symbol>
+
+    <symbol id="s-extract" viewBox="0 0 64 64">
+      <g transform="translate(2 16) scale(2)">
+        <path fill="#fff" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 6.5c-1.2-1-2.6-1.5-4-1.5C5.5 5 4 6.8 4 9.3c0 1.7.5 3 1 4.4.6 1.6.9 3.3 1.3 5 .2 1 .8 1.8 1.7 1.8 1 0 1.5-.9 1.8-2l.5-2.2c.2-.8.6-1.2 1.2-1.2s1 .4 1.2 1.2l.5 2.2c.3 1.1.8 2 1.8 2 .9 0 1.5-.8 1.7-1.8.4-1.7.7-3.4 1.3-5 .5-1.4 1-2.7 1-4.4C20 6.8 18.5 5 16 5c-1.4 0-2.8.5-4 1.5z"/>
+      </g>
+      <path d="M36 34 L56 10" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <path d="M50 8 L60 18" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <circle cx="34" cy="36" r="7" fill="currentColor"/>
+    </symbol>
+
+    <symbol id="s-doctor" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="22" cy="26" r="8"/>
+        <path d="M6 58v-8a16 16 0 0 1 32 0v8"/>
+        <path d="M16 44l6 8 6-8"/>
+        <circle cx="46" cy="18" r="12"/>
+        <path d="M38 27l-4 6 8-3"/>
+      </g>
+      <rect x="43.5" y="11" width="5" height="14" fill="currentColor"/>
+      <rect x="39" y="15.5" width="14" height="5" fill="currentColor"/>
+    </symbol>
+
+    <!-- about -->
+    <symbol id="a-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></symbol>
+    <symbol id="a-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></symbol>
+    <symbol id="a-calendar" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm-2 8h14v10H5V10zm2 2v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2h-2z"/></symbol>
+    <symbol id="a-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path fill="currentColor" d="M3.5 21c0-4.3 3.8-6.5 8.5-6.5s8.5 2.2 8.5 6.5z"/></symbol>
+  </svg>
+
+  <!-- ================= NAVBAR (links scroll to the sections below) ================= -->
+  <header class="navbar-wrapper">
+    <div class="nav-container">
+      <a href="#home" class="brand-section">
+        <img src="images/logo.png" alt="Logo" class="clinic-logo">
+        <div class="brand-title">
+          <span class="brand-bold">AMBAYEC</span>
+          <span class="brand-light">DENTAL CARE CLINIC</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#home" class="nav-item active">HOME</a>
+        <a href="#services" class="nav-item">SERVICES</a>
+        <a href="#about" class="nav-item">ABOUT</a>
+        <a href="login.html" class="btn-nav-login">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HOME ================= -->
+    <section id="home">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <h1>Your Smile is<br>Our Priority.</h1>
+          <p>Quality Dental Care made easier. Book your appointment anytime, anywhere.</p>
+          <a href="login.html" class="btn-hero-book">Book an Appointment</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services" class="page-section">
+      <div class="section-inner">
+        <h2 class="page-heading">Our Services</h2>
+        <p class="page-subheading">Professional dental care for a healthier and brighter smile.</p>
+
+        <div class="svc-grid">
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-doctor"/></svg>
+            <h3>GENERAL SERVICES</h3>
+            <p>Keep your teeth healthy</p>
+          </article>
+
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-extract"/></svg>
+            <h3>GUM DISEASE TREATMENT</h3>
+            <p>Restore gum health</p>
+          </article>
+
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-tooth-sparkle"/></svg>
+            <h3>ORAL PROPHYLAXIS</h3>
+            <p>Keep your teeth clean</p>
+          </article>
+
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-tooth-plus"/></svg>
+            <h3>RESTORATIVE TREATMENT</h3>
+            <p>Repairs damaged or decayed teeth</p>
+          </article>
+
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-tooth-plus"/></svg>
+            <h3>PROSTHODONTIC TREATMENT</h3>
+            <p>Replaces missing teeth with artificial parts</p>
+          </article>
+
+          <article class="svc-card">
+            <svg class="svc-icon"><use href="#s-extract"/></svg>
+            <h3>PRACTICING ORTHODONTICS</h3>
+            <p>Straightens teeth and corrects bite problems</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="page-section">
+      <div class="section-inner">
+
+        <div class="about-banner">
+          <h2>About us</h2>
+          <p>Your trusted dental care partner<br>in San Pedro City.</p>
+        </div>
+
+        <p class="about-intro">
+          Ambayec Dental Care Clinic is committed to providing high-quality, compassionate, and affordable dental care to the community.
+          We use modern technology and a patient-centered approach to ensure a comfortable and positive experience.
+        </p>
+
+        <div class="about-card">
+          <div class="about-info-grid">
+            <div class="info-item">
+              <span class="info-icon"><svg><use href="#a-pin"/></svg></span>
+              <div>
+                <h3>Clinic Address</h3>
+                <p>#419 Quezon St. San Antonio,<br>San Pedro Laguna</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon"><svg><use href="#a-phone"/></svg></span>
+              <div>
+                <h3>Contact Number</h3>
+                <p>(0921) 249 3296<br>(02) 847 6049</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon"><svg><use href="#a-calendar"/></svg></span>
+              <div>
+                <h3>Schedule</h3>
+                <p>Weekdays: 5PM - 7PM<br>Weekends: 10AM - 5PM</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon"><svg><use href="#a-user"/></svg></span>
+              <div>
+                <h3>Attending Dentist</h3>
+                <p>Dr. Jenina R. Ambayec, DMD</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-dentist">
+            <!-- Put the dentist's photo at images/dentist.jpg. Until then the silhouette shows. -->
+            <div class="dentist-photo">
+              <svg viewBox="0 0 24 24"><use href="#a-user"/></svg>
+              <img src="images/dentist.jpg" alt="Dr. Jenina R. Ambayec" onerror="this.style.display='none'">
+            </div>
+            <div class="dentist-text">
+              <span class="dentist-label">Our Dentist</span>
+              <h3>Dr. Jenina R. Ambayec, DMD</h3>
+              <span class="dentist-role">General Dentistry &amp; Practicing Orthodontics</span>
+              <hr>
+              <!-- Replace with your dentist's description -->
+              <p>description of the dentist</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* ============================================================
+   about.css - the #about section of index.html
+   ============================================================ */
+
+/* Banner (uses images/aboutusheader.png) */
+.about-banner {
+  height: 150px;
+  border-radius: 14px;
+  background: url('../images/aboutusheader.png') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+  color: #fff;
+}
+.about-banner h2 { font-size: 38px; font-weight: 800; line-height: 1.1; }
+.about-banner p { font-size: 15px; font-weight: 700; line-height: 1.3; margin-top: 4px; }
+
+.about-intro { text-align: justify; font-size: 14px; line-height: 1.7; color: var(--primary-light); margin: 14px 4px 20px; }
+
+/* Big info card */
+.about-card {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: center;
+  border: 1.5px solid var(--primary-dark);
+  border-radius: 16px;
+  background: #f9fdff;
+  padding: 28px 30px;
+}
+
+.about-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+.info-item { display: flex; align-items: flex-start; gap: 12px; }
+
+.info-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.info-icon svg { width: 20px; height: 20px; }
+
+.info-item h3 { font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px; }
+.info-item p { font-size: 12px; line-height: 1.5; color: var(--primary-light); }
+
+/* Dentist block */
+.about-dentist { display: flex; align-items: center; gap: 18px; }
+
+.dentist-photo {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #dbeef5;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 14px rgba(1, 106, 138, 0.18);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.dentist-photo svg { width: 78px; height: 78px; color: var(--primary-light); }
+.dentist-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.dentist-label { font-size: 13px; color: var(--primary-light); }
+.dentist-text h3 { font-size: 16px; font-weight: 800; color: var(--primary-dark); margin: 2px 0; }
+.dentist-role { font-size: 11px; color: var(--primary-light); }
+.dentist-text hr { border: none; height: 2px; width: 70%; background: var(--primary-dark); margin: 10px 0 8px; }
+.dentist-text p { font-size: 11px; color: var(--primary-light); }
+
+@media (max-width: 900px) { .about-card { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .about-info-grid { grid-template-columns: 1fr; }
+  .about-dentist { flex-direction: column; text-align: center; }
+  .dentist-text hr { margin-left: auto; margin-right: auto; }
+}

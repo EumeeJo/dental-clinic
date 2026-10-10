@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dentist Dashboard - Ambayec Dental Care Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/appointments.css">
+  <link rel="stylesheet" href="css/dentist.css">
+  <link rel="stylesheet" href="css/schedule.css">
+  <link rel="stylesheet" href="css/notifications.css">
+  <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+
+  <!-- notification bell (built by js/notifications.js) -->
+  <div id="notifMount"></div>
+
+  <!-- Icon sprite (used with <svg class="icon"><use href="#i-name"/></svg>) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-calendar-check" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4"/></symbol>
+    <symbol id="i-patients" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="currentColor" stroke="none"/><path d="M2.5 20c0-3.6 3-5.5 6.5-5.5s6.500 1.900 6.500 5.500z" fill="currentColor" stroke="none"/><circle cx="17.500" cy="9" r="2.800" fill="currentColor" stroke="none"/><path d="M17 14.500c2.800 0 5 1.400 5 4.500h-4.500" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5" fill="currentColor" stroke="none"/><path d="M3.5 21c0-4.3 3.8-6.5 8.5-6.5s8.5 2.2 8.5 6.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4"/><path d="M16 8l4 4-4 4M20 12H9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-width="3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke-width="3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.500 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  </svg>
+
+  <div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+        <div>
+          <div class="sidebar-brand-bold">AMBAYEC</div>
+          <div class="sidebar-brand-light">DENTAL CARE CLINIC</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#" id="navDashboard" class="nav-link active" onclick="showSection('dashOverview')">
+          <svg class="icon"><use href="#i-home"/></svg><span>Dashboard</span>
+        </a>
+        <a href="#" id="navAppts" class="nav-link" onclick="showSection('appointmentsPage')">
+          <svg class="icon"><use href="#i-calendar"/></svg><span>Appointments</span>
+        </a>
+        <a href="#" id="navSchedule" class="nav-link" onclick="showSection('schedulePage')">
+          <svg class="icon"><use href="#i-calendar-check"/></svg><span>Schedule</span>
+        </a>
+        <a href="#" id="navPatients" class="nav-link" onclick="showSection('patientsPage')">
+          <svg class="icon"><use href="#i-patients"/></svg><span>Patients</span>
+        </a>
+        <a href="#" id="navProfile" class="nav-link" onclick="showSection('profilePage')">
+          <svg class="icon"><use href="#i-user"/></svg><span>Profile</span>
+        </a>
+      </nav>
+
+      <a href="#" class="logout-link" onclick="logoutUser()">
+        <svg class="icon"><use href="#i-logout"/></svg><span>Logout</span>
+      </a>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+      <!-- ===== PAGE: Dashboard ===== -->
+      <div id="dashOverview" class="dash-view">
+        <div class="dash-top">
+          <div class="welcome-header">
+            <h2><span data-greeting>Good Morning</span>, <span id="dentistWelcomeName">Dr. Jenina</span>!</h2>
+            <p>Here’s an overview of your clinic today.</p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-head"><span class="stat-icon blue"><svg class="icon"><use href="#i-calendar"/></svg></span><span class="stat-label">Total Appointments</span></div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-sub">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-head"><span class="stat-icon green"><svg class="icon"><use href="#i-check"/></svg></span><span class="stat-label">Completed</span></div>
+            <div class="stat-value" id="statCompleted">0</div>
+            <div class="stat-sub">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-head"><span class="stat-icon yellow"><svg class="icon"><use href="#i-clock"/></svg></span><span class="stat-label">Pending</span></div>
+            <div class="stat-value" id="statPending">0</div>
+            <div class="stat-sub">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-head"><span class="stat-icon red"><svg class="icon"><use href="#i-x"/></svg></span><span class="stat-label">Cancelled</span></div>
+            <div class="stat-value" id="statCancelled">0</div>
+            <div class="stat-sub">This Week</div>
+          </div>
+        </div>
+
+        <div class="dash-columns">
+          <div class="box-card">
+            <h3 class="box-title">Today’s Appointments</h3>
+            <div class="today-list" id="todayList"></div>
+          </div>
+
+          <div class="box-card">
+            <h3 class="box-title">Quick Actions</h3>
+            <div class="quick-list">
+              <button class="quick-btn" onclick="openRequests()"><span>View Appointment Requests</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+              <button class="quick-btn" onclick="showSection('schedulePage')"><span>Manage Schedule</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+              <button class="quick-btn" onclick="openServicesInfo()"><span>Edit Dental Services</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+              <button class="quick-btn" onclick="openReports()"><span>View Reports</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Appointment Requests ===== -->
+      <div id="appointmentsPage" class="dash-view" style="display: none;">
+        <h2 class="page-title">Appointment Requests</h2>
+
+        <div class="req-panel">
+          <div class="req-toolbar">
+            <div class="tab-group">
+              <button class="tab active" id="tabPending" onclick="setRequestTab('Pending')">Pending (<span id="cntPending">0</span>)</button>
+              <button class="tab" id="tabConfirmed" onclick="setRequestTab('Confirmed')">Confirmed (<span id="cntConfirmed">0</span>)</button>
+              <button class="tab" id="tabCancelled" onclick="setRequestTab('Cancelled')">Cancelled (<span id="cntCancelled">0</span>)</button>
+            </div>
+            <label class="search-box">
+              <svg class="icon"><use href="#i-search"/></svg>
+              <input type="text" id="reqSearch" placeholder="search by patient name..." oninput="renderRequests()">
+            </label>
+          </div>
+
+          <div class="req-table">
+            <div class="req-head">
+              <span>Date &amp; Time</span><span>Patient</span><span>Service</span><span>Status</span><span>Actions</span>
+            </div>
+            <div class="req-body" id="reqRows"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Manage Schedule ===== -->
+      <div id="schedulePage" class="dash-view" style="display: none;">
+        <h2 class="page-title">Manage Schedule</h2>
+
+        <div class="sched-toolbar">
+          <div class="sched-nav">
+            <button class="sched-arrow" onclick="changeWeek(-1)" aria-label="Previous week">&#8249;</button>
+            <button class="sched-arrow" onclick="changeWeek(1)" aria-label="Next week">&#8250;</button>
+            <span class="sched-week" id="schedWeekLabel">October 5 - 11, 2026</span>
+          </div>
+          <div class="sched-actions">
+            <button class="btn-dark" onclick="openBookPatient()">+ Book for Patient</button>
+            <button class="btn-dark" onclick="openAddSchedule()">+ Add Schedule</button>
+          </div>
+        </div>
+
+        <div class="sched-wrap">
+          <div class="sched-grid" id="schedGrid"></div>
+        </div>
+
+        <div class="sched-legend">
+          <span><i class="lg-box lg-available"></i> Available (click to block)</span>
+          <span><i class="lg-box lg-unavailable"></i> Unavailable (click to open again)</span>
+          <span><i class="lg-box lg-booked"></i> Booked (click for details)</span>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Patient List ===== -->
+      <div id="patientsPage" class="dash-view" style="display: none;">
+        <div class="patients-top">
+          <h2 class="page-title">Patient List</h2>
+          <label class="search-box">
+            <svg class="icon"><use href="#i-search"/></svg>
+            <input type="text" id="patientSearch" placeholder="search by patient name..." oninput="renderPatients()">
+          </label>
+        </div>
+
+        <div class="pat-table">
+          <div class="pat-head">
+            <span>Name</span><span>Contact Number</span><span>Email</span><span>Last Visit</span><span>Actions</span>
+          </div>
+          <div class="pat-body" id="patientRows"></div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Profile ===== -->
+      <div id="profilePage" class="dash-view" style="display: none;">
+        <h2 class="page-title">My Profile</h2>
+
+        <div class="dprofile-card">
+          <div class="dprofile-top">
+            <div class="dprofile-avatar"><svg class="icon"><use href="#i-user"/></svg></div>
+            <div class="dprofile-id">
+              <div class="dprofile-name" id="dpHeaderName"></div>
+              <div class="dprofile-role">Dentist</div>
+            </div>
+            <div class="dprofile-actions">
+              <button class="btn-dark" id="dpEditBtn" onclick="handleDentistProfileButton()">Edit Profile</button>
+              <button class="btn-dark" id="dpPasswordBtn" onclick="openPasswordModal()">Update Password</button>
+              <button class="btn-cancel" id="dpCancelBtn" style="display: none;" onclick="cancelDentistProfileEdit()">Cancel</button>
+            </div>
+          </div>
+
+          <form id="dpForm" class="dprofile-fields" onsubmit="return false;">
+            <div class="dfield">
+              <label for="dpFullName">Full Name</label>
+              <input type="text" id="dpFullName" data-field="fullName" readonly>
+            </div>
+            <div class="dfield">
+              <label for="dpEmail">Email Address</label>
+              <input type="email" id="dpEmail" data-field="email" readonly>
+            </div>
+            <div class="dfield">
+              <label for="dpContact">Contact Number</label>
+              <input type="tel" id="dpContact" data-field="contact" readonly>
+            </div>
+          </form>
+          <p class="profile-message" id="dpMessage"></p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= POP-UPS ================= -->
+
+  <!-- Appointment details (from the schedule) -->
+  <div id="apptModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Appointment Details</h3>
+        <button class="btn-close-modal" onclick="closeModal('apptModal')">✕</button>
+      </div>
+      <div class="modal-details">
+        <p><strong>Appointment ID:</strong> <span id="adId"></span></p>
+        <p><strong>Patient:</strong> <span id="adPatient"></span></p>
+        <p><strong>Contact:</strong> <span id="adContact"></span></p>
+        <p><strong>Service:</strong> <span id="adService"></span></p>
+        <p><strong>Date &amp; Time:</strong> <span id="adDateTime"></span></p>
+        <p><strong>Status:</strong> <span id="adStatus" class="status-badge"></span></p>
+      </div>
+      <button class="btn-next" style="width: 100%;" onclick="closeModal('apptModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Are you sure? -->
+  <div id="confirmModal" class="modal-overlay">
+    <div class="modal-card confirm-card">
+      <h3 class="confirm-title" id="confirmTitle">Are you sure?</h3>
+      <p class="confirm-text" id="confirmText"></p>
+      <div class="confirm-buttons">
+        <button class="btn-back" onclick="closeModal('confirmModal')">No, go back</button>
+        <button class="btn-danger" id="confirmYes">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book for Patient (the dentist schedules an appointment for a patient) -->
+  <div id="bookPatientModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Book for Patient</h3>
+        <button class="btn-close-modal" onclick="closeModal('bookPatientModal')">✕</button>
+      </div>
+
+      <div class="mfield">
+        <label for="bpPatient">Patient</label>
+        <select id="bpPatient" onchange="bpPatientChanged()"></select>
+      </div>
+
+      <div class="form-grid" id="bpNewFields" style="display: none;">
+        <div class="mfield"><label for="bpFirst">First name</label><input type="text" id="bpFirst"></div>
+        <div class="mfield"><label for="bpLast">Last name</label><input type="text" id="bpLast"></div>
+        <div class="mfield" style="grid-column: 1 / -1;"><label for="bpContact">Contact number</label><input type="tel" id="bpContact"></div>
+      </div>
+
+      <div class="form-grid">
+        <div class="mfield"><label for="bpService">Service</label><select id="bpService"></select></div>
+        <div class="mfield"><label for="bpDate">Date</label><input type="date" id="bpDate" onchange="bpRefreshTimes()"></div>
+      </div>
+      <div class="mfield">
+        <label for="bpTime">Time</label>
+        <select id="bpTime"></select>
+      </div>
+
+      <p class="modal-note">Appointments you add are confirmed right away, and the patient is notified.</p>
+      <p class="modal-error" id="bpError"></p>
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closeModal('bookPatientModal')">Cancel</button>
+        <button class="btn-dark" onclick="saveBookPatient()">Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Schedule -->
+  <div id="scheduleModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add Schedule</h3>
+        <button class="btn-close-modal" onclick="closeModal('scheduleModal')">✕</button>
+      </div>
+      <div class="form-grid">
+        <div class="mfield"><label for="schFrom">From date</label><input type="date" id="schFrom"></div>
+        <div class="mfield"><label for="schTo">To date</label><input type="date" id="schTo"></div>
+        <div class="mfield"><label for="schStart">Start time</label><select id="schStart"></select></div>
+        <div class="mfield"><label for="schEnd">End time</label><select id="schEnd"></select></div>
+      </div>
+      <div class="mfield">
+        <label>Mark these times as</label>
+        <div class="radio-row">
+          <label class="radio-opt"><input type="radio" name="schMode" value="block" checked> Unavailable (day off, leave, break)</label>
+          <label class="radio-opt"><input type="radio" name="schMode" value="open"> Available again</label>
+        </div>
+      </div>
+      <p class="modal-error" id="schError"></p>
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closeModal('scheduleModal')">Cancel</button>
+        <button class="btn-dark" onclick="applySchedule()">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient: view -->
+  <div id="patientViewModal" class="modal-overlay">
+    <div class="modal-card wide">
+      <div class="modal-header">
+        <h3 id="pvName">Patient</h3>
+        <button class="btn-close-modal" onclick="closeModal('patientViewModal')">✕</button>
+      </div>
+      <div class="pv-grid">
+        <p><strong>Patient ID:</strong> <span id="pvId"></span></p>
+        <p><strong>Age:</strong> <span id="pvAge"></span></p>
+        <p><strong>Gender:</strong> <span id="pvGender"></span></p>
+        <p><strong>Contact:</strong> <span id="pvContact"></span></p>
+        <p><strong>Email:</strong> <span id="pvEmail"></span></p>
+        <p><strong>Address:</strong> <span id="pvAddress"></span></p>
+      </div>
+      <h4 class="pv-sub">Appointments</h4>
+      <div class="pv-visits" id="pvVisits"></div>
+      <button class="btn-next" style="width: 100%; margin-top: 16px;" onclick="closeModal('patientViewModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Patient: edit -->
+  <div id="patientEditModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Edit Patient</h3>
+        <button class="btn-close-modal" onclick="closeModal('patientEditModal')">✕</button>
+      </div>
+      <div class="form-grid">
+        <div class="mfield"><label for="peFirst">First name</label><input type="text" id="peFirst"></div>
+        <div class="mfield"><label for="peLast">Last name</label><input type="text" id="peLast"></div>
+        <div class="mfield"><label for="peContact">Contact number</label><input type="tel" id="peContact"></div>
+        <div class="mfield"><label for="peEmail">Email</label><input type="email" id="peEmail"></div>
+      </div>
+      <p class="modal-error" id="peError"></p>
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closeModal('patientEditModal')">Cancel</button>
+        <button class="btn-dark" onclick="savePatientEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Password -->
+  <div id="passwordModal" class="modal-overlay">
+    <div class="modal-card confirm-card">
+      <div class="modal-header">
+        <h3>Update Password</h3>
+        <button class="btn-close-modal" onclick="closeModal('passwordModal')">✕</button>
+      </div>
+      <div class="mfield"><label for="pwCurrent">Current password</label><input type="password" id="pwCurrent" autocomplete="current-password"></div>
+      <div class="mfield"><label for="pwNew">New password</label><input type="password" id="pwNew" autocomplete="new-password"></div>
+      <div class="mfield"><label for="pwConfirm">Confirm new password</label><input type="password" id="pwConfirm" autocomplete="new-password"></div>
+      <p class="modal-error" id="pwError"></p>
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closeModal('passwordModal')">Cancel</button>
+        <button class="btn-dark" onclick="savePassword()">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports -->
+  <div id="reportsModal" class="modal-overlay">
+    <div class="modal-card wide">
+      <div class="modal-header">
+        <h3 id="reportTitle">Reports</h3>
+        <button class="btn-close-modal" onclick="closeModal('reportsModal')">✕</button>
+      </div>
+      <div id="reportBody"></div>
+      <button class="btn-next" style="width: 100%; margin-top: 16px;" onclick="closeModal('reportsModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- small message at the bottom of the screen -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts: order matters (clinic-store.js and dentist.js first) -->
+  <script src="js/popup.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/greeting.js"></script>
+  <script src="js/clinic-store.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/dentist.js"></script>
+  <script src="js/dentist-appointments.js"></script>
+  <script src="js/dentist-schedule.js"></script>
+  <script src="js/dentist-patients.js"></script>
+  <script src="js/dentist-profile.js"></script>
+</body>
+</html>

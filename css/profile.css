@@ -1,0 +1,104 @@
+/* ============================================================
+   profile.css - My Profile page
+   ============================================================ */
+
+.profile-card {
+  border: 1.5px solid var(--primary-light);
+  border-radius: 20px;
+  background: #f9fdff;
+  padding: 22px 26px 26px;
+  margin-top: 14px;
+}
+
+.profile-top { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+
+.profile-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #dbeef5;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(1, 106, 138, 0.18);
+  color: var(--primary-light);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.profile-avatar .icon { width: 58px; height: 58px; }
+
+.profile-id { flex: 1; }
+.profile-name { font-size: 18px; color: var(--primary-dark); }
+.profile-patient-id { font-size: 12.5px; color: var(--primary-light); margin-top: 2px; }
+
+.profile-actions { display: flex; align-items: center; gap: 8px; }
+.profile-actions .btn-dark { padding: 10px 42px; }
+
+.profile-section-title { font-size: 17px; font-weight: 500; color: var(--primary-dark); margin-bottom: 10px; }
+
+/* Fields box */
+.profile-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 40px;
+  border: 1.5px solid var(--primary-dark);
+  border-radius: 18px;
+  background: #fff;
+  padding: 20px 26px 24px;
+}
+
+.field label { display: block; font-size: 11.5px; font-weight: 800; color: var(--primary-dark); margin-bottom: 2px; }
+
+.field input, .field select {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--primary);
+  background: transparent;
+  padding: 5px 2px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  outline: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* a disabled dropdown would look greyed out - keep it the same colour as the other fields */
+.field select:disabled { color: var(--primary-dark); opacity: 1; -webkit-text-fill-color: var(--primary-dark); }
+
+/* view mode: look like plain text */
+.profile-fields:not(.editing) input,
+.profile-fields:not(.editing) select { pointer-events: none; }
+
+/* edit mode: clearly editable */
+.profile-fields.editing input,
+.profile-fields.editing select {
+  background: #f1f9fc;
+  border-bottom-color: var(--primary-dark);
+  padding: 6px 8px;
+  border-radius: 6px 6px 0 0;
+}
+.profile-fields.editing input:focus,
+.profile-fields.editing select:focus { background: #e3f3f9; border-bottom-color: var(--primary); }
+
+.profile-message { min-height: 18px; margin-top: 12px; font-size: 13px; font-weight: 600; }
+.profile-message.error { color: #c0392b; }
+.profile-message.success { color: #1e9e4a; }
+
+/* Age is calculated from the date of birth, so it is never editable */
+.field-full { grid-column: 1 / -1; }
+.field-auto input { pointer-events: none; }
+.profile-fields.editing .field-auto input,
+.profile-fields.editing .field-auto input:focus {
+  background: transparent;
+  border-bottom-color: var(--primary);
+  padding: 5px 2px;
+  border-radius: 0;
+}
+
+@media (max-width: 700px) {
+  .profile-top { flex-wrap: wrap; }
+  .profile-fields { grid-template-columns: 1fr; }
+}

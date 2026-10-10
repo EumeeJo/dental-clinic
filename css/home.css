@@ -1,0 +1,131 @@
+@import url('common.css');
+
+/* ============================================================
+   home.css - one-page site (index.html): navbar, hero, and the
+   shared section wrapper. Services and About have their own css:
+     services.css -> #services section
+     about.css    -> #about section
+   ============================================================ */
+
+:root { --header-h: 66px; }          /* height of the sticky navbar */
+
+html { scroll-behavior: smooth; }    /* smooth scrolling when a nav link is clicked */
+
+/* ---------- Navbar ---------- */
+.navbar-wrapper {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-section { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: var(--transition-fast); }
+.brand-section:hover { transform: translateY(-2px); }
+
+.clinic-logo { width: 44px; height: auto; transition: transform 0.4s ease; }
+.brand-section:hover .clinic-logo { transform: rotate(-8deg) scale(1.05); }
+
+.brand-title { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-bold { font-weight: 800; font-size: 18px; letter-spacing: 3px; color: var(--primary-dark); }
+.brand-light { font-weight: 400; font-size: 12px; color: var(--primary); }
+
+.nav-links { display: flex; align-items: center; gap: 35px; }
+
+/* dark teal normally, light blue for the section you are on */
+.nav-item {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  position: relative;
+  padding-bottom: 4px;
+  transition: var(--transition-fast);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover::after, .nav-item.active::after { width: 100%; }
+.nav-item.active, .nav-item:hover { color: var(--primary); }
+
+.btn-nav-login {
+  background-color: var(--primary-dark);
+  color: #fff;
+  padding: 8px 26px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(1, 106, 138, 0.25);
+  transition: var(--transition-fast);
+}
+.btn-nav-login:hover { background-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(25, 165, 207, 0.35); }
+
+/* ---------- Sections (shared) ---------- */
+section { scroll-margin-top: var(--header-h); }   /* so the sticky navbar doesn't cover the section title */
+
+.section-inner { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 25px; }
+
+/* Services and About fill the screen so each nav click lands cleanly on its section */
+.page-section {
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Home (hero) ---------- */
+#home { padding: 25px 25px 10px; }
+
+.hero-banner {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 320px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(1, 106, 138, 0.95), rgba(25, 165, 207, 0.85)), url('../images/header.jpg') center/cover;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  animation: fadeIn 0.8s ease-out;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-content h1 { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+.hero-content p { font-size: 14px; color: #fff; margin-bottom: 22px; opacity: 0.95; }
+
+.btn-hero-book {
+  background-color: var(--primary-dark);
+  color: #fff;
+  padding: 12px 26px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-fast);
+}
+.btn-hero-book:hover { background-color: var(--primary); transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 22px rgba(25, 165, 207, 0.4); }
+
+@media (max-width: 700px) {
+  .nav-links { gap: 16px; }
+  .hero-banner { padding: 0 24px; height: 280px; }
+  .hero-content h1 { font-size: 26px; }
+}

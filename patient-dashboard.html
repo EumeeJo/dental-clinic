@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard - Ambayec Dental Care Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/booking.css">
+  <link rel="stylesheet" href="css/appointments.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/notifications.css">
+  <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+
+  <!-- notification bell (built by js/notifications.js) -->
+  <div id="notifMount"></div>
+
+  <!-- Icon sprite (used with <svg class="icon"><use href="#i-name"/></svg>) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-calendar-check" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5" fill="currentColor" stroke="none"/><path d="M3.5 21c0-4.3 3.8-6.5 8.5-6.5s8.5 2.2 8.5 6.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-doctor" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/><path d="M9.5 14.5 12 18l2.5-3.5"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4"/><path d="M16 8l4 4-4 4M20 12H9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-width="3"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24">
+      <path fill="currentColor" stroke="none" d="M12 6.5c-1.2-1-2.6-1.5-4-1.5C5.5 5 4 6.8 4 9.3c0 1.7.5 3 1 4.4.6 1.6.9 3.3 1.3 5 .2 1 .8 1.8 1.7 1.8 1 0 1.5-.9 1.8-2l.5-2.2c.2-.8.6-1.2 1.2-1.2s1 .4 1.2 1.2l.5 2.2c.3 1.1.8 2 1.8 2 .9 0 1.5-.8 1.7-1.8.4-1.7.7-3.4 1.3-5 .5-1.4 1-2.7 1-4.4C20 6.8 18.5 5 16 5c-1.4 0-2.8.5-4 1.5z"/>
+      <path fill="#19a5cf" stroke="none" d="M19.5 0l.6 1.4L21.5 2l-1.4.6-.6 1.4-.6-1.4L17.5 2l1.4-.6z"/>
+    </symbol>
+  </svg>
+
+  <div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+        <div>
+          <div class="sidebar-brand-bold">AMBAYEC</div>
+          <div class="sidebar-brand-light">DENTAL CARE CLINIC</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#" id="navDashboard" class="nav-link active" onclick="showSection('dashOverview')">
+          <svg class="icon"><use href="#i-home"/></svg><span>Dashboard</span>
+        </a>
+        <a href="#" id="navBook" class="nav-link" onclick="showSection('bookStep1')">
+          <svg class="icon"><use href="#i-calendar"/></svg><span>Book Appointments</span>
+        </a>
+        <a href="#" id="navMyAppt" class="nav-link" onclick="showSection('myAppointment')">
+          <svg class="icon"><use href="#i-calendar-check"/></svg><span>My Appointment</span>
+        </a>
+        <a href="#" id="navHistory" class="nav-link" onclick="showSection('appointmentHistory')">
+          <svg class="icon"><use href="#i-history"/></svg><span>Appointment History</span>
+        </a>
+        <a href="#" id="navProfile" class="nav-link" onclick="showSection('profilePage')">
+          <svg class="icon"><use href="#i-user"/></svg><span>Profile</span>
+        </a>
+      </nav>
+
+      <a href="#" class="logout-link" onclick="logoutUser()">
+        <svg class="icon"><use href="#i-logout"/></svg><span>Logout</span>
+      </a>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+      <!-- ===== PAGE: Dashboard overview ===== -->
+      <div id="dashOverview" class="dash-view">
+        <div class="welcome-header">
+          <h2><span data-greeting>Good Morning</span>, <span id="patientWelcomeName">Chai</span>!</h2>
+          <p>Here’s your dental appointment overview.</p>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-title">Next Appointment</div>
+
+          <div class="appointment-grid" id="nextApptContent">
+            <div class="appointment-info">
+              <h3 id="ovDate">—</h3>
+              <p id="ovTime">—</p>
+              <p><strong id="ovDentist">—</strong><br><span id="ovService">—</span></p>
+              <button class="btn-view-details" onclick="viewNextDetails()">View Details</button>
+            </div>
+            <div class="mini-calendar">
+              <table>
+                <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                <tr id="miniCalendarRow"></tr>
+              </table>
+            </div>
+          </div>
+
+          <p id="nextApptEmpty" class="empty-text" style="display: none;">
+            You have no upcoming appointments.
+            <a href="#" onclick="showSection('bookStep1')">Book one now</a>
+          </p>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-title">Recent Appointments</div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Date</th><th>Service</th><th>Dentist</th><th>Status</th></tr>
+            </thead>
+            <tbody id="recentApptBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Book Appointment - Step 1 (Service) ===== -->
+      <div id="bookStep1" class="dash-view" style="display: none;">
+        <h2 class="page-title">Book an Appointment</h2>
+        <div class="step-bar">
+          <div class="step-item active"><span class="step-circle">1</span> Service</div>
+          <div class="step-item"><span class="step-circle">2</span> Date &amp; Time</div>
+          <div class="step-item"><span class="step-circle">3</span> Confirmation</div>
+        </div>
+
+        <h3 class="section-title">Select Dental Service</h3>
+
+        <div class="booking-services-grid">
+          <div class="booking-card selected" data-service="Dental Cleaning" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Dental Cleaning</h3>
+            <p>Routine teeth cleaning</p>
+          </div>
+          <div class="booking-card" data-service="Consultation" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Consultation</h3>
+            <p>Expert oral advice</p>
+          </div>
+          <div class="booking-card" data-service="Tooth Extraction" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Tooth Extraction</h3>
+            <p>Safe extraction</p>
+          </div>
+          <div class="booking-card" data-service="Dental Filling" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Dental Filling</h3>
+            <p>Repair cavities</p>
+          </div>
+          <div class="booking-card" data-service="Teeth Whitening" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Teeth Whitening</h3>
+            <p>Brighter smile</p>
+          </div>
+          <div class="booking-card" data-service="Root Canal" onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Root Canal</h3>
+            <p>Save damaged teeth</p>
+          </div>
+          <div class="booking-card" data-service="Oral Prophylaxis" title="Regular checkups pair a dentist's visual inspection for decay, bite alignment, and oral cancer signs with professional scaling (oral prophylaxis) to remove hardened tartar." onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Oral Prophylaxis</h3>
+            <p>Professional scaling & polishing</p>
+          </div>
+          <div class="booking-card" data-service="Restorative Treatment" title="Composite (tooth-colored) or amalgam resins repair structural damage and cavities, stopping further decay." onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Restorative Treatment</h3>
+            <p>Fillings & tooth repair</p>
+          </div>
+          <div class="booking-card" data-service="Prosthodontic Treatment" title="Custom caps restore broken teeth, while bridges span gaps left by missing teeth using adjacent teeth as anchors." onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Prosthodontic Treatment</h3>
+            <p>Crowns, bridges & replacements</p>
+          </div>
+          <div class="booking-card" data-service="Practicing Orthodontics" title="Straightens teeth and corrects bite alignment." onclick="selectService(this)">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <h3>Practicing Orthodontics</h3>
+            <p>Teeth & bite alignment</p>
+          </div>
+        </div>
+
+        <div class="booking-action-footer">
+          <button class="btn-cancel" onclick="cancelBooking()">Cancel</button>
+          <button class="btn-next" onclick="showSection('bookStep2')">Next</button>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Book Appointment - Step 2 (Date & Time) ===== -->
+      <div id="bookStep2" class="dash-view" style="display: none;">
+        <h2 class="page-title">Book an Appointment</h2>
+        <div class="step-bar">
+          <div class="step-item"><span class="step-circle">1</span> Service</div>
+          <div class="step-item active"><span class="step-circle">2</span> Date &amp; Time</div>
+          <div class="step-item"><span class="step-circle">3</span> Confirmation</div>
+        </div>
+
+        <h3 class="section-title">Choose Date &amp; Time</h3>
+
+        <div class="datetime-grid">
+          <div>
+            <div class="panel calendar-card">
+              <div class="calendar-header">
+                <button class="cal-nav" id="calPrev" onclick="changeMonth(-1)" aria-label="Previous month">&#8249;</button>
+                <span id="calMonthLabel">October 2026</span>
+                <button class="cal-nav" id="calNext" onclick="changeMonth(1)" aria-label="Next month">&#8250;</button>
+              </div>
+              <div class="calendar-weekdays">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+              </div>
+              <div class="calendar-days" id="calendarDays"></div>
+            </div>
+            <div class="calendar-legend"><span class="legend-dot"></span> Dentist Not Available</div>
+          </div>
+
+          <div class="datetime-side">
+            <div class="panel">
+              <h4 class="panel-title">Available Times</h4>
+              <div class="time-slots">
+                <div class="time-btn" onclick="selectTime(this)">9:00 AM</div>
+                <div class="time-btn" onclick="selectTime(this)">10:00 AM</div>
+                <div class="time-btn" onclick="selectTime(this)">11:00 AM</div>
+                <div class="time-btn" onclick="selectTime(this)">1:00 PM</div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h4 class="panel-title">Selected</h4>
+              <div class="selected-row">
+                <svg class="icon"><use href="#i-calendar"/></svg>
+                <span id="selectedDateText" class="placeholder-text">Pick a date</span>
+              </div>
+              <div class="selected-row">
+                <svg class="icon"><use href="#i-clock"/></svg>
+                <span id="selectedTimeText" class="placeholder-text">Pick a time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-action-footer">
+          <button class="btn-back" onclick="showSection('bookStep1')">Back</button>
+          <button class="btn-next" id="step2NextBtn" onclick="goToConfirmation()" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Book Appointment - Step 3 (Confirmation) ===== -->
+      <div id="bookStep3" class="dash-view" style="display: none;">
+        <h2 class="page-title">Book an Appointment</h2>
+        <div class="step-bar">
+          <div class="step-item"><span class="step-circle">1</span> Service</div>
+          <div class="step-item"><span class="step-circle">2</span> Date &amp; Time</div>
+          <div class="step-item active"><span class="step-circle">3</span> Confirmation</div>
+        </div>
+
+        <h3 class="section-title">Confirm your booking</h3>
+
+        <div class="panel summary-card">
+          <h4 class="summary-title">Selected Information</h4>
+          <div class="summary-row">
+            <svg class="icon"><use href="#i-calendar"/></svg>
+            <span>Date: <span id="confirmDate"></span></span>
+          </div>
+          <div class="summary-row">
+            <svg class="icon"><use href="#i-clock"/></svg>
+            <span>Time: <span id="confirmTime"></span></span>
+          </div>
+          <div class="summary-row">
+            <svg class="icon tooth-icon"><use href="#i-tooth"/></svg>
+            <span>Service: <span id="confirmService"></span></span>
+          </div>
+        </div>
+
+        <div class="booking-action-footer">
+          <button class="btn-back" onclick="showSection('bookStep2')">Back</button>
+          <button class="btn-next" onclick="confirmBooking()">Confirm Booking</button>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: My Appointment ===== -->
+      <div id="myAppointment" class="dash-view" style="display: none;">
+        <h2 class="page-title">My Appointment</h2>
+        <p class="page-subtitle">Your next scheduled visit.</p>
+
+        <div class="appt-card" id="apptCard">
+          <div class="appt-main">
+            <div class="date-block">
+              <span class="date-block-month" id="maMonth">SEP</span>
+              <span class="date-block-day" id="maDay">24</span>
+              <span class="date-block-year" id="maYear">2026</span>
+              <span class="date-block-weekday" id="maWeekday">Thu</span>
+            </div>
+            <div class="appt-details">
+              <div class="appt-line"><svg class="icon"><use href="#i-clock"/></svg><span id="maTime"></span></div>
+              <div class="appt-line"><svg class="icon tooth-icon"><use href="#i-tooth"/></svg><span id="maService"></span></div>
+              <div class="appt-line"><svg class="icon"><use href="#i-doctor"/></svg><span id="maDentist"></span></div>
+              <div class="appt-id">Appointment ID: <span id="maId"></span></div>
+            </div>
+          </div>
+
+          <div class="appt-status">
+            <div class="appt-status-label">Appointment Status:</div>
+            <span class="status-badge lg pending" id="maStatus">Pending</span>
+            <hr class="appt-status-divider">
+            <button class="btn-dark" id="maCancelBtn" onclick="askCancelAppointment()">Cancel Appointment</button>
+            <p class="appt-note" id="maCancelNote" style="display: none;">This appointment was cancelled.</p>
+          </div>
+        </div>
+
+        <div class="dash-card appt-empty" id="apptEmpty" style="display: none;">
+          <p class="empty-text">
+            You have no upcoming appointment.
+            <a href="#" onclick="showSection('bookStep1')">Book an appointment</a>
+          </p>
+        </div>
+
+        <div class="clinic-info-card">
+          <h3 class="clinic-info-title">Clinic and Location Information</h3>
+          <div class="clinic-info-body">
+            <p><strong>Address:</strong> #419 Quezon St. San Antonio, San Pedro Laguna</p>
+            <p><strong>Contact Number:</strong> (0921) 249 3296 / (02) 847 6049</p>
+            <p><strong>Operating Hours:</strong> Monday to Saturday: 10AM - 6PM | Sunday: by appointment</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Appointment History ===== -->
+      <div id="appointmentHistory" class="dash-view" style="display: none;">
+        <h2 class="page-title">Appointment History</h2>
+        <p class="page-subtitle">View your past dental visits and treatment records.</p>
+
+        <div class="history-panel">
+          <div class="history-filters">
+            <label class="search-box">
+              <svg class="icon"><use href="#i-search"/></svg>
+              <input type="text" id="historySearch" placeholder="search by service or date..." oninput="renderHistory()">
+            </label>
+            <select id="historyService" class="filter-select" onchange="renderHistory()">
+              <option value="all">all services</option>
+            </select>
+            <div class="year-select">
+              <svg class="icon"><use href="#i-calendar"/></svg>
+              <select id="historyYear" onchange="renderHistory()"></select>
+            </div>
+          </div>
+
+          <div class="history-table">
+            <div class="history-head">
+              <span>Date &amp; Time</span><span>Service</span><span>Dentist</span><span>Status</span>
+            </div>
+            <div id="historyRows"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE: Profile ===== -->
+      <div id="profilePage" class="dash-view" style="display: none;">
+        <h2 class="page-title">My Profile</h2>
+
+        <div class="profile-card">
+          <div class="profile-top">
+            <div class="profile-avatar"><svg class="icon"><use href="#i-user"/></svg></div>
+            <div class="profile-id">
+              <div class="profile-name" id="profileName"></div>
+              <div class="profile-patient-id">Patient ID: <span id="profilePatientId"></span></div>
+            </div>
+            <div class="profile-actions">
+              <button class="btn-cancel" id="profileCancelBtn" style="display: none;" onclick="cancelProfileEdit()">Cancel</button>
+              <button class="btn-dark" id="profileEditBtn" onclick="handleProfileButton()">Edit Profile</button>
+            </div>
+          </div>
+
+          <h3 class="profile-section-title">Personal Information</h3>
+
+          <form id="profileForm" class="profile-fields" onsubmit="return false;">
+            <div class="field">
+              <label for="pfFirstName">First Name</label>
+              <input type="text" id="pfFirstName" data-field="firstName" readonly>
+            </div>
+            <div class="field">
+              <label for="pfLastName">Last Name</label>
+              <input type="text" id="pfLastName" data-field="lastName" readonly>
+            </div>
+            <div class="field">
+              <label for="pfMiddleName">Middle Name</label>
+              <input type="text" id="pfMiddleName" data-field="middleName" readonly>
+            </div>
+            <div class="field">
+              <label for="pfDob">Date of Birth</label>
+              <input type="date" id="pfDob" data-field="dob" readonly>
+            </div>
+            <div class="field field-auto">
+              <label for="pfAge">Age</label>
+              <input type="text" id="pfAge" readonly tabindex="-1" placeholder="Set your date of birth">
+            </div>
+            <div class="field">
+              <label for="pfGender">Gender</label>
+              <select id="pfGender" data-field="gender" disabled>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pfContact">Contact Number</label>
+              <input type="tel" id="pfContact" data-field="contact" readonly>
+            </div>
+            <div class="field">
+              <label for="pfEmail">Email</label>
+              <input type="email" id="pfEmail" data-field="email" readonly>
+            </div>
+            <div class="field field-full">
+              <label for="pfAddress">Address</label>
+              <input type="text" id="pfAddress" data-field="address" readonly>
+            </div>
+          </form>
+          <p class="profile-message" id="profileMessage"></p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= POP-UPS ================= -->
+
+  <!-- Appointment Details -->
+  <div id="appointmentModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Appointment Details</h3>
+        <button class="btn-close-modal" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-details">
+        <p><strong>Clinic:</strong> Ambayec Dental Care Clinic</p>
+        <p><strong>Appointment ID:</strong> <span id="detailId">—</span></p>
+        <p><strong>Service:</strong> <span id="detailService"></span></p>
+        <p><strong>Dentist:</strong> <span id="detailDentist"></span></p>
+        <p><strong>Date &amp; Time:</strong> <span id="detailDateTime"></span></p>
+        <p><strong>Status:</strong> <span id="detailStatus" class="status-badge">Confirmed</span></p>
+      </div>
+      <button class="btn-next" style="width: 100%;" onclick="closeModal()">Close Details</button>
+    </div>
+  </div>
+
+  <!-- Appointment Submitted (after Confirm Booking) -->
+  <div id="successModal" class="modal-overlay">
+    <div class="modal-card success-card">
+      <div class="success-icon"><svg class="icon"><use href="#i-check"/></svg></div>
+      <h3 class="success-title">Appointment Submitted!</h3>
+      <p class="success-text">Your appointment has been submitted to the clinic for approval.</p>
+      <div class="success-id-label">Appointment ID</div>
+      <div class="success-id" id="successApptId">APT-2026-0001</div>
+      <button class="btn-next success-btn" onclick="viewSubmittedAppointment()">View Appointment</button>
+      <a href="#" class="success-link" onclick="backToDashboard()">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Cancel Appointment confirmation -->
+  <div id="cancelModal" class="modal-overlay">
+    <div class="modal-card confirm-card">
+      <h3 class="confirm-title">Cancel this appointment?</h3>
+      <p class="confirm-text">The clinic will be notified that you can no longer make it.</p>
+      <div class="confirm-buttons">
+        <button class="btn-back" onclick="closeCancelModal()">Keep Appointment</button>
+        <button class="btn-danger" onclick="confirmCancelAppointment()">Yes, Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: order matters (patient.js must come first) -->
+  <script src="js/popup.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/greeting.js"></script>
+  <script src="js/clinic-store.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/patient.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/appointments.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

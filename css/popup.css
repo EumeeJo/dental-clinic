@@ -1,0 +1,89 @@
+/* ============================================================
+   popup.css - system pop-up (replaces the browser's plain alert box)
+   Same look as the rest of the clinic: blurred blue backdrop,
+   white rounded card, round icon, Poppins text, blue button.
+   Works on every page (login, register, dashboards).
+   ============================================================ */
+.sys-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 106, 138, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.sys-popup-overlay.open { opacity: 1; visibility: visible; }
+
+.sys-popup-card {
+  --tone: #19a5cf;
+  background: #f9fdff;
+  width: 90%;
+  max-width: 360px;
+  border-radius: 20px;
+  padding: 34px 30px 26px;
+  text-align: center;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  transform: scale(0.85);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sys-popup-overlay.open .sys-popup-card { transform: scale(1); }
+
+.sys-popup-card.success { --tone: #2fb457; }
+.sys-popup-card.error   { --tone: #d64545; }
+.sys-popup-card.warning { --tone: #e6a817; }
+.sys-popup-card.info    { --tone: #19a5cf; }
+
+.sys-popup-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--tone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 0 0 8px rgba(25, 165, 207, 0.18);
+}
+@supports (color: color-mix(in srgb, red 10%, transparent)) {
+  .sys-popup-icon { box-shadow: 0 0 0 8px color-mix(in srgb, var(--tone) 18%, transparent); }
+}
+.sys-popup-icon svg { width: 36px; height: 36px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.sys-popup-overlay.open .sys-popup-icon { animation: sysPopIn 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+
+.sys-popup-title { font-size: 18px; font-weight: 800; color: #016a8a; margin: 0 0 8px; }
+.sys-popup-text  { font-size: 13px; color: #19a5cf; line-height: 1.55; margin: 0 0 20px; word-break: break-word; }
+
+.sys-popup-btn {
+  width: 100%;
+  background: #016a8a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 26px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sys-popup-btn:hover { background: #19a5cf; transform: translateY(-2px); }
+.sys-popup-btn:active { transform: scale(0.96); }
+.sys-popup-card.error .sys-popup-btn { background: #c0392b; }
+.sys-popup-card.error .sys-popup-btn:hover { background: #a93226; }
+
+@keyframes sysPopIn {
+  0%   { transform: scale(0.4); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sys-popup-overlay, .sys-popup-card { transition: none; }
+  .sys-popup-overlay.open .sys-popup-icon { animation: none; }
+}
